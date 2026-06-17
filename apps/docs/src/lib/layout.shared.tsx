@@ -5,15 +5,8 @@ export function baseOptions(): BaseLayoutProps {
     nav: {
       title: "GoDUI",
     },
-    links: [
-      {
-        text: "Storybook",
-        url: "/design-system",
-      },
-    ],
     themeSwitch: {
-      enabled: true,
-      mode: "light-dark-system",
+      enabled: false,
     },
   };
 }
