@@ -15,6 +15,14 @@ export {
   type MagicButtonVariant,
 } from "./magic-button";
 export {
+  MagicInput,
+  type MagicInputDepth,
+  type MagicInputProps,
+  type MagicInputSize,
+  type MagicInputStatus,
+  type MagicInputVariant,
+} from "./magic-input";
+export {
   MaskButton,
   type MaskButtonMask,
   type MaskButtonProps,

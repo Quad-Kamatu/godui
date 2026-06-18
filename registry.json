@@ -314,6 +314,329 @@
       }
     },
     {
+      "name": "magic-input",
+      "type": "registry:ui",
+      "title": "Magic Input",
+      "description": "A 3D layered text input that lifts on focus with an optional rainbow edge animation.",
+      "registryDependencies": ["@godui/godui-theme"],
+      "files": [
+        {
+          "path": "packages/components/src/magic-input.tsx",
+          "type": "registry:ui",
+          "target": "components/godui/magic-input.tsx"
+        }
+      ],
+      "css": {
+        "@keyframes magic-rainbow": {
+          "0%": {
+            "background-position": "0% 50%"
+          },
+          "100%": {
+            "background-position": "200% 50%"
+          }
+        },
+        "@keyframes magic-input-indeterminate": {
+          "from": {
+            "background-position": "110% center"
+          },
+          "to": {
+            "background-position": "-10% center"
+          }
+        },
+        "@keyframes magic-input-sweep": {
+          "from": {
+            "background-size": "0% 100%"
+          },
+          "to": {
+            "background-size": "100% 100%"
+          }
+        },
+        "@keyframes magic-input-spin": {
+          "to": {
+            "transform": "rotate(360deg)"
+          }
+        },
+        "@layer components": {
+          ".magic-input": {
+            "position": "relative",
+            "display": "inline-block",
+            "border-radius": "var(--radius-xl)",
+            "-webkit-tap-highlight-color": "transparent"
+          },
+          ".magic-input-shadow": {
+            "position": "absolute",
+            "inset": "0",
+            "border-radius": "var(--radius-xl)",
+            "background": "hsl(0deg 0% 0% / 0.25)",
+            "will-change": "transform",
+            "transform": "translateY(0)",
+            "opacity": "0",
+            "filter": "blur(4px)",
+            "transition": "transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1), opacity 250ms ease"
+          },
+          ".magic-input-edge": {
+            "position": "absolute",
+            "inset": "0",
+            "border-radius": "var(--radius-xl)",
+            "opacity": "0",
+            "transition": "opacity 250ms ease"
+          },
+          ".magic-input[data-variant=\"primary\"] .magic-input-edge": {
+            "background": "linear-gradient(to left, color-mix(in srgb, var(--primary) 50%, black) 0%, color-mix(in srgb, var(--primary) 75%, black) 8%, color-mix(in srgb, var(--primary) 75%, black) 92%, color-mix(in srgb, var(--primary) 50%, black) 100%)"
+          },
+          ".magic-input[data-variant=\"secondary\"] .magic-input-edge": {
+            "background": "linear-gradient(to left, color-mix(in srgb, var(--secondary) 50%, black) 0%, color-mix(in srgb, var(--secondary) 75%, black) 8%, color-mix(in srgb, var(--secondary) 75%, black) 92%, color-mix(in srgb, var(--secondary) 50%, black) 100%)"
+          },
+          ".magic-input-front": {
+            "display": "block",
+            "position": "relative",
+            "width": "100%",
+            "box-sizing": "border-box",
+            "border": "1px solid var(--border)",
+            "outline": "none",
+            "border-radius": "var(--radius-xl)",
+            "color": "var(--foreground)",
+            "background": "var(--background)",
+            "font": "inherit",
+            "will-change": "transform",
+            "transform": "translateY(0)",
+            "transition": "transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1)"
+          },
+          ".magic-input-front::placeholder": {
+            "color": "var(--muted-foreground)"
+          },
+          ".magic-input:focus-within .magic-input-front": {
+            "border-color": "transparent"
+          },
+          ".magic-input[data-depth=\"always\"] .magic-input-front": {
+            "transform": "translateY(-4px)"
+          },
+          ".magic-input[data-depth=\"always\"] .magic-input-edge": {
+            "opacity": "1"
+          },
+          ".magic-input[data-depth=\"always\"] .magic-input-shadow": {
+            "opacity": "1",
+            "transform": "translateY(4px)"
+          },
+          ".magic-input[data-depth=\"focus\"]:focus-within .magic-input-front": {
+            "transform": "translateY(-4px)",
+            "transition": "transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5)"
+          },
+          ".magic-input[data-depth=\"focus\"]:focus-within .magic-input-edge, .magic-input[data-depth=\"focus\"]:focus-within .magic-input-shadow": {
+            "opacity": "1"
+          },
+          ".magic-input[data-depth=\"focus\"]:focus-within .magic-input-shadow": {
+            "transform": "translateY(4px)"
+          },
+          ".magic-input[data-depth=\"always\"]:focus-within .magic-input-front": {
+            "transform": "translateY(-6px)",
+            "transition": "transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5)"
+          },
+          ".magic-input[data-depth=\"always\"]:focus-within .magic-input-shadow": {
+            "transform": "translateY(6px)"
+          },
+          ".magic-input[data-rainbow=\"true\"]:not([data-status]):focus-within .magic-input-edge": {
+            "background": "linear-gradient(90deg, var(--rainbow-1), var(--rainbow-5), var(--rainbow-3), var(--rainbow-4), var(--rainbow-2))",
+            "background-size": "200% 100%",
+            "animation": "magic-rainbow var(--rainbow-speed, 2s) infinite linear"
+          },
+          ".magic-input[data-rainbow=\"true\"]:not([data-status]):focus-within .magic-input-shadow": {
+            "background": "linear-gradient(90deg, var(--rainbow-1), var(--rainbow-5), var(--rainbow-3), var(--rainbow-4), var(--rainbow-2))",
+            "background-size": "200% 100%",
+            "animation": "magic-rainbow var(--rainbow-speed, 2s) infinite linear",
+            "filter": "blur(12px)",
+            "opacity": "0.7"
+          },
+          ".magic-input:has(.magic-input-front:disabled)": {
+            "cursor": "not-allowed"
+          },
+          ".magic-input-front:disabled": {
+            "opacity": "0.5",
+            "cursor": "not-allowed"
+          },
+          ".magic-input:has(.magic-input-front:disabled) .magic-input-shadow, .magic-input:has(.magic-input-front:disabled) .magic-input-edge": {
+            "display": "none"
+          },
+          ".magic-input:has(.magic-input-front:disabled) .magic-input-front": {
+            "transform": "translateY(0)"
+          },
+          ".magic-input-submit": {
+            "position": "absolute",
+            "top": "6px",
+            "right": "6px",
+            "bottom": "6px",
+            "aspect-ratio": "1",
+            "display": "inline-flex",
+            "align-items": "center",
+            "justify-content": "center",
+            "padding": "0",
+            "border": "none",
+            "border-radius": "calc(var(--radius-xl) - 6px)",
+            "background": "var(--primary)",
+            "color": "var(--primary-foreground)",
+            "font-size": "1.125rem",
+            "line-height": "1",
+            "cursor": "pointer",
+            "z-index": "1",
+            "transform": "translateY(0)",
+            "transition": "transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1), filter 200ms ease",
+            "-webkit-tap-highlight-color": "transparent"
+          },
+          ".magic-input-submit:hover": {
+            "filter": "brightness(110%)"
+          },
+          ".magic-input-submit:active": {
+            "filter": "brightness(95%)"
+          },
+          ".magic-input-submit:focus-visible": {
+            "outline": "2px solid var(--ring)",
+            "outline-offset": "2px"
+          },
+          ".magic-input-submit:disabled": {
+            "cursor": "not-allowed",
+            "opacity": "0.5"
+          },
+          ".magic-input[data-depth=\"always\"] .magic-input-submit": {
+            "transform": "translateY(-4px)"
+          },
+          ".magic-input[data-depth=\"focus\"]:focus-within .magic-input-submit": {
+            "transform": "translateY(-4px)",
+            "transition": "transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5)"
+          },
+          ".magic-input[data-depth=\"always\"]:focus-within .magic-input-submit": {
+            "transform": "translateY(-6px)",
+            "transition": "transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5)"
+          },
+          ".magic-input[data-status] .magic-input-submit, .magic-input[data-status]:focus-within .magic-input-submit": {
+            "transform": "translateY(-4px)"
+          },
+          ".magic-input[data-submit=\"true\"] .magic-input-front--sm": {
+            "padding-right": "2.5rem"
+          },
+          ".magic-input[data-submit=\"true\"] .magic-input-front--md": {
+            "padding-right": "3rem"
+          },
+          ".magic-input[data-submit=\"true\"] .magic-input-front--lg": {
+            "padding-right": "3.75rem"
+          },
+          ".magic-input[data-status] .magic-input-front, .magic-input[data-status]:focus-within .magic-input-front": {
+            "transform": "translateY(-4px)"
+          },
+          ".magic-input[data-status]": {
+            "--magic-fill": "var(--primary)"
+          },
+          ".magic-input[data-status] .magic-input-edge": {
+            "opacity": "1",
+            "background-color": "color-mix(in srgb, var(--foreground) 14%, transparent)",
+            "background-image": "linear-gradient(90deg, var(--magic-fill), var(--magic-fill))",
+            "background-repeat": "no-repeat",
+            "background-position": "right center",
+            "background-size": "0% 100%",
+            "animation": "none"
+          },
+          ".magic-input[data-status] .magic-input-shadow": {
+            "opacity": "0.75",
+            "transform": "translateY(6px)",
+            "filter": "blur(12px)",
+            "background-color": "transparent",
+            "background-image": "linear-gradient(90deg, var(--magic-fill), var(--magic-fill))",
+            "background-repeat": "no-repeat",
+            "background-position": "right center",
+            "background-size": "0% 100%",
+            "animation": "none"
+          },
+          ".magic-input[data-determinate=\"true\"] .magic-input-edge, .magic-input[data-determinate=\"true\"] .magic-input-shadow": {
+            "background-size": "var(--magic-progress, 0%) 100%"
+          },
+          ".magic-input[data-armed=\"true\"] .magic-input-edge, .magic-input[data-armed=\"true\"] .magic-input-shadow": {
+            "transition": "background-size 250ms ease"
+          },
+          ".magic-input[data-status=\"loading\"]:not([data-determinate=\"true\"]) .magic-input-edge, .magic-input[data-status=\"loading\"]:not([data-determinate=\"true\"]) .magic-input-shadow": {
+            "background-image": "linear-gradient(90deg, transparent, var(--magic-fill), transparent)",
+            "background-size": "45% 100%",
+            "animation": "magic-input-indeterminate 1.2s ease-in-out infinite alternate"
+          },
+          ".magic-input[data-status=\"success\"]": {
+            "--magic-fill": "oklch(0.65 0.17 150)"
+          },
+          ".magic-input[data-status=\"error\"]": {
+            "--magic-fill": "var(--destructive)"
+          },
+          ".magic-input[data-status=\"success\"] .magic-input-edge, .magic-input[data-status=\"error\"] .magic-input-edge, .magic-input[data-status=\"success\"] .magic-input-shadow, .magic-input[data-status=\"error\"] .magic-input-shadow": {
+            "background-color": "var(--primary)",
+            "background-position": "left center",
+            "background-size": "100% 100%",
+            "animation": "magic-input-sweep 220ms ease-out"
+          },
+          ".magic-input[data-status=\"success\"] .magic-input-submit": {
+            "background": "oklch(0.65 0.17 150)",
+            "color": "oklch(1 0 0)"
+          },
+          ".magic-input[data-status=\"error\"] .magic-input-submit": {
+            "background": "var(--destructive)",
+            "color": "oklch(1 0 0)"
+          },
+          ".magic-input-spinner": {
+            "animation": "magic-input-spin 0.8s linear infinite",
+            "transform-origin": "center"
+          },
+          ".magic-input-icon": {
+            "position": "absolute",
+            "inset": "0",
+            "display": "grid",
+            "place-items": "center",
+            "opacity": "0",
+            "transform": "scale(0.4) rotate(-35deg)",
+            "transition": "opacity 220ms ease, transform 220ms cubic-bezier(0.3, 0.7, 0.4, 1.4)"
+          },
+          ".magic-input:not([data-status]) .magic-input-icon[data-icon=\"arrow\"], .magic-input[data-status=\"loading\"] .magic-input-icon[data-icon=\"ring\"], .magic-input[data-status=\"success\"] .magic-input-icon[data-icon=\"check\"], .magic-input[data-status=\"error\"] .magic-input-icon[data-icon=\"x\"]": {
+            "opacity": "1",
+            "transform": "scale(1) rotate(0deg)"
+          },
+          ".magic-input[data-status=\"loading\"] .magic-input-front, .magic-input[data-status=\"success\"] .magic-input-front": {
+            "color": "color-mix(in srgb, var(--foreground) 45%, transparent)"
+          },
+          ".magic-input[data-status=\"loading\"] .magic-input-front::placeholder, .magic-input[data-status=\"success\"] .magic-input-front::placeholder": {
+            "color": "color-mix(in srgb, var(--muted-foreground) 55%, transparent)"
+          },
+          ".magic-input-sr": {
+            "position": "absolute",
+            "width": "1px",
+            "height": "1px",
+            "margin": "-1px",
+            "padding": "0",
+            "overflow": "hidden",
+            "clip": "rect(0, 0, 0, 0)",
+            "white-space": "nowrap",
+            "border": "0"
+          },
+          ".magic-input-front--sm": {
+            "padding": "var(--button-py-sm) var(--button-px-sm)",
+            "font-size": "var(--button-text-sm)",
+            "line-height": "var(--button-leading-sm)"
+          },
+          ".magic-input-front--md": {
+            "padding": "var(--button-py-md) var(--button-px-md)",
+            "font-size": "var(--button-text-md)",
+            "line-height": "var(--button-leading-md)"
+          },
+          ".magic-input-front--lg": {
+            "padding": "var(--button-py-lg) var(--button-px-lg)",
+            "font-size": "var(--button-text-lg)",
+            "line-height": "var(--button-leading-lg)"
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ".magic-input-front, .magic-input-shadow, .magic-input-edge, .magic-input-submit, .magic-input-icon": {
+              "transition": "none"
+            },
+            ".magic-input[data-rainbow=\"true\"]:focus-within .magic-input-edge, .magic-input[data-rainbow=\"true\"]:focus-within .magic-input-shadow, .magic-input[data-status] .magic-input-edge, .magic-input[data-status] .magic-input-shadow, .magic-input-spinner": {
+              "animation": "none"
+            }
+          }
+        }
+      }
+    },
+    {
       "name": "shimmer-button",
       "type": "registry:ui",
       "title": "Shimmer Button",
