@@ -157,20 +157,56 @@ import { MyComponent } from "@godui/components";
 
 `ComponentPreview` and `ComponentInstall` are registered globally in `apps/docs/src/components/mdx.tsx`.
 
-Add the slug to `apps/docs/content/docs/components/meta.json`. Slugs are `category/name`, and category headers use the `---Label---` separator syntax:
+**MDX `<p>`-in-`<p>` hydration trap (happens frequently).** Inside `ComponentPreview`
+children, any text sitting on **its own line** inside a block element gets wrapped by MDX
+in an extra `<p>`. If that element is itself a `<p>` (or the preview already lives inside
+prose), you get `<p>` nested in `<p>` → `In HTML, <p> cannot be a descendant of <p>` and a
+hydration error. **Keep text inline on the same line as its tag:**
+
+```mdx
+<!-- WRONG — MDX wraps the text in its own <p> -->
+<p className="...">
+  Your content sits above the background.
+</p>
+
+<!-- RIGHT — text inline, no extra <p> -->
+<p className="...">Your content sits above the background.</p>
+```
+
+This is render-only (the live children), so `eslint` / `biome` won't catch it — it only
+shows in `docs:dev`. Same trap applies to any block tag with multi-line bare text.
+
+**Parameterized installs (e.g. a background variant baked into the file).** A component
+whose install should bake a choice is served by the dynamic route
+`apps/docs/src/app/r/[item]/route.ts` (wrapping `@godui/components/registry`) via a
+`?variant=` query param — **not** by `shadcn build`. Such items are removed from
+`registry.json` so the route owns `/r/{name}.json`, the generated component carries its
+overridable defaults inside `// @default-props:start/end` markers (the route swaps that
+block), and the install command is the full-URL form
+`shadcn add "https://godui.design/r/{name}.json?variant=…"`. The interactive picker lives in
+`apps/docs/src/components/background-showcase.tsx`.
+
+**Nav is driven by one root file: `apps/docs/content/docs/meta.json`** (not a per-folder
+`meta.json`, and there is **no** Fumadocs folder auto-nav here — a page absent from this
+file simply won't appear in the sidebar). Slugs are the full path from `docs/`, i.e.
+`components/{category}/{name}`. Category headers use the `---Label---` separator:
 
 ```json
 {
-  "title": "Components",
+  "title": "GodUI",
   "pages": [
     "---Buttons---",
-    "buttons/magic-button",
-    "buttons/my-component",
+    "components/buttons/magic-button",
+    "components/buttons/my-component",
     "---Text---",
-    "text/typography"
+    "components/text/typography"
   ]
 }
 ```
+
+Also add a `<Card>` for the component to its category section in
+`apps/docs/content/docs/components/index.mdx` (the Components landing grid) — that page is
+hand-maintained too.
 
 ## 6. Naming rules
 
@@ -186,6 +222,8 @@ Add the slug to `apps/docs/content/docs/components/meta.json`. Slugs are `catego
 - **NEVER** skip `React.forwardRef` — components must forward refs for composition.
 - **NEVER** add `"use client"` unless hooks/client APIs are used.
 - **NEVER** use arbitrary z-index — use the scale: `z-base`, `z-raised`, `z-overlay`, `z-sticky`, `z-popover`, `z-modal`, `z-toast`.
+- **NEVER** put bare text on its own line inside a block tag in `ComponentPreview` children — MDX wraps it in a `<p>`, causing `<p>`-in-`<p>` hydration errors. Keep text inline (see §5).
+- **NEVER** rely on folder auto-nav for docs — register the page in the root `apps/docs/content/docs/meta.json` (slug `components/{category}/{name}`) and add a `<Card>` in `components/index.mdx`, or it won't appear (see §5).
 
 ## 8. Theme tokens
 
@@ -205,6 +243,8 @@ Add the slug to `apps/docs/content/docs/components/meta.json`. Slugs are `catego
 - [ ] Styles authored as inline Tailwind utilities — no CSS file / no `@layer components` (only `@keyframes` + `@theme` may touch `styles.css`)
 - [ ] Storybook story with `tags: ["autodocs"]`
 - [ ] Docs MDX under `components/{category}/` with ComponentPreview + ComponentInstall
-- [ ] Added to `components/meta.json` as `category/name`
+- [ ] ComponentPreview children: text inline in its tag (no `<p>`-in-`<p>` — see §5)
+- [ ] Registered in root `apps/docs/content/docs/meta.json` as `components/{category}/{name}`
+- [ ] `<Card>` added to its section in `components/index.mdx`
 - [ ] Static Tailwind classes only (no dynamic class construction)
 - [ ] Verified styles in Storybook and docs after dev server restart

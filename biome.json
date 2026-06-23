@@ -12,7 +12,9 @@
       "!!**/.next",
       "!!**/.turbo",
       "!!**/storybook-static",
-      "!!**/public/design-system"
+      "!!**/public/design-system",
+      "!!**/scripts/vendor",
+      "!!**/*.source.ts"
     ]
   },
   "formatter": {

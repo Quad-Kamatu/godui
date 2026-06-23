@@ -9,6 +9,10 @@
       "types": "./src/index.ts",
       "default": "./src/index.ts"
     },
+    "./registry": {
+      "types": "./src/lib/background-registry.ts",
+      "default": "./src/lib/background-registry.ts"
+    },
     "./styles.css": "./styles.css",
     "./fonts/vite.css": "./fonts/vite.css",
     "./fonts/next": {
@@ -26,6 +30,7 @@
   ],
   "scripts": {
     "build": "echo 'skip'",
+    "generate:backgrounds": "node scripts/generate-backgrounds.mjs",
     "lint": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
     "test:watch": "vitest"
