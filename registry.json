@@ -957,21 +957,6 @@
       ]
     },
     {
-      "name": "theme-toggle",
-      "type": "registry:ui",
-      "title": "Theme Toggle",
-      "description": "A dark/light switch that reveals the new theme with a circular wipe from the click origin.",
-      "dependencies": ["framer-motion"],
-      "registryDependencies": ["@godui/godui-theme"],
-      "files": [
-        {
-          "path": "packages/components/src/theme-toggle/theme-toggle.tsx",
-          "type": "registry:ui",
-          "target": "components/godui/theme-toggle.tsx"
-        }
-      ]
-    },
-    {
       "name": "sparkles",
       "type": "registry:ui",
       "title": "Sparkles",
@@ -1226,21 +1211,6 @@
       ]
     },
     {
-      "name": "pagination",
-      "type": "registry:ui",
-      "title": "Pagination",
-      "description": "A page navigator with a shared-element indicator that slides to the active page, nudging arrows, and ellipsis truncation.",
-      "dependencies": ["framer-motion"],
-      "registryDependencies": ["@godui/godui-theme"],
-      "files": [
-        {
-          "path": "packages/components/src/pagination/pagination.tsx",
-          "type": "registry:ui",
-          "target": "components/godui/pagination.tsx"
-        }
-      ]
-    },
-    {
       "name": "tab-bar",
       "type": "registry:ui",
       "title": "Tab Bar",
@@ -1426,20 +1396,6 @@
       ]
     },
     {
-      "name": "neural-grid",
-      "type": "registry:ui",
-      "title": "Neural Grid",
-      "description": "A neural lattice — nodes wired into a grid with signal pulses traveling the edges. The AI-product hero background, on a lightweight Canvas.",
-      "registryDependencies": ["@godui/godui-theme"],
-      "files": [
-        {
-          "path": "packages/components/src/neural-grid/neural-grid.tsx",
-          "type": "registry:ui",
-          "target": "components/godui/neural-grid.tsx"
-        }
-      ]
-    },
-    {
       "name": "flow-field",
       "type": "registry:ui",
       "title": "Flow Field",
@@ -1555,6 +1511,51 @@
           "path": "packages/components/src/warp-starfield/warp-starfield.tsx",
           "type": "registry:ui",
           "target": "components/godui/warp-starfield.tsx"
+        }
+      ]
+    },
+    {
+      "name": "hold-confirm-button",
+      "type": "registry:ui",
+      "title": "Hold Confirm Button",
+      "description": "Press and hold to confirm a destructive action; a radial fill commits at 100% and releasing early cancels.",
+      "dependencies": ["framer-motion"],
+      "registryDependencies": ["@godui/godui-theme"],
+      "files": [
+        {
+          "path": "packages/components/src/hold-confirm-button/hold-confirm-button.tsx",
+          "type": "registry:ui",
+          "target": "components/godui/hold-confirm-button.tsx"
+        }
+      ]
+    },
+    {
+      "name": "slide-confirm-button",
+      "type": "registry:ui",
+      "title": "Slide Confirm Button",
+      "description": "A drag-to-confirm thumb for high-stakes actions that snaps past a threshold and springs back otherwise.",
+      "dependencies": ["framer-motion"],
+      "registryDependencies": ["@godui/godui-theme"],
+      "files": [
+        {
+          "path": "packages/components/src/slide-confirm-button/slide-confirm-button.tsx",
+          "type": "registry:ui",
+          "target": "components/godui/slide-confirm-button.tsx"
+        }
+      ]
+    },
+    {
+      "name": "gooey-fab",
+      "type": "registry:ui",
+      "title": "Gooey FAB",
+      "description": "A floating action button that gooey-morphs to extrude its satellite actions like liquid metaballs.",
+      "dependencies": ["framer-motion"],
+      "registryDependencies": ["@godui/godui-theme"],
+      "files": [
+        {
+          "path": "packages/components/src/gooey-fab/gooey-fab.tsx",
+          "type": "registry:ui",
+          "target": "components/godui/gooey-fab.tsx"
         }
       ]
     }

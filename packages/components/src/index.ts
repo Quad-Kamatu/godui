@@ -142,6 +142,13 @@ export {
 } from "./geometric-background";
 export { Globe, type GlobeProps } from "./globe";
 export {
+  GooeyFab,
+  type GooeyFabAction,
+  type GooeyFabDirection,
+  type GooeyFabProps,
+  type GooeyFabSize,
+} from "./gooey-fab";
+export {
   GradientBackground,
   type GradientBackgroundProps,
   type GradientBackgroundVariant,
@@ -153,6 +160,13 @@ export {
   type HighlighterAction,
   type HighlighterProps,
 } from "./highlighter";
+export {
+  HoldConfirmButton,
+  type HoldConfirmButtonProps,
+  type HoldConfirmButtonSize,
+  type HoldConfirmButtonStatus,
+  type HoldConfirmButtonVariant,
+} from "./hold-confirm-button";
 export {
   ImageAccordion,
   type ImageAccordionPanel,
@@ -226,7 +240,6 @@ export {
   type MegaMenuProps,
   type MegaMenuSection,
 } from "./mega-menu";
-export { NeuralGrid, type NeuralGridProps } from "./neural-grid";
 export {
   type Notification,
   NotificationInbox,
@@ -245,7 +258,6 @@ export {
   type OTPInputProps,
   type OTPInputStatus,
 } from "./otp-input";
-export { Pagination, type PaginationProps } from "./pagination";
 export {
   ParticleDissolve,
   type ParticleDissolveProps,
@@ -308,6 +320,13 @@ export {
   type ShimmerButtonVariant,
 } from "./shimmer-button";
 export {
+  SlideConfirmButton,
+  type SlideConfirmButtonProps,
+  type SlideConfirmSize,
+  type SlideConfirmStatus,
+  type SlideConfirmVariant,
+} from "./slide-confirm-button";
+export {
   type CitationSource,
   SourceCitation,
   type SourceCitationProps,
@@ -342,7 +361,6 @@ export {
   TextScramble,
   type TextScrambleProps,
 } from "./text-scramble";
-export { ThemeToggle, type ThemeToggleProps } from "./theme-toggle";
 export { TiltCard, type TiltCardProps } from "./tilt-card";
 export {
   type ToastAction,

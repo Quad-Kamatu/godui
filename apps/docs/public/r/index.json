@@ -1,7 +1,7 @@
 {
   "name": "godui",
   "homepage": "https://godui.design",
-  "generatedAt": "2026-06-27T04:24:18.351Z",
+  "generatedAt": "2026-06-27T13:41:19.400Z",
   "components": [
     {
       "name": "accordion",
@@ -247,6 +247,15 @@
       "install": "npx shadcn@latest add @godui/globe"
     },
     {
+      "name": "gooey-fab",
+      "title": "Gooey FAB",
+      "description": "A floating action button that gooey-morphs to extrude its satellite actions like liquid metaballs.",
+      "category": "Buttons",
+      "dependencies": ["framer-motion"],
+      "registryDependencies": ["@godui/godui-theme"],
+      "install": "npx shadcn@latest add @godui/gooey-fab"
+    },
+    {
       "name": "highlighter",
       "title": "Highlighter",
       "description": "Hand-drawn rough-notation annotations (highlight, underline, box, circle) over text.",
@@ -254,6 +263,15 @@
       "dependencies": ["framer-motion", "rough-notation"],
       "registryDependencies": ["@godui/godui-theme"],
       "install": "npx shadcn@latest add @godui/highlighter"
+    },
+    {
+      "name": "hold-confirm-button",
+      "title": "Hold Confirm Button",
+      "description": "Press and hold to confirm a destructive action; a radial fill commits at 100% and releasing early cancels.",
+      "category": "Buttons",
+      "dependencies": ["framer-motion"],
+      "registryDependencies": ["@godui/godui-theme"],
+      "install": "npx shadcn@latest add @godui/hold-confirm-button"
     },
     {
       "name": "image-accordion",
@@ -409,15 +427,6 @@
       "install": "npx shadcn@latest add @godui/mega-menu"
     },
     {
-      "name": "neural-grid",
-      "title": "Neural Grid",
-      "description": "A neural lattice — nodes wired into a grid with signal pulses traveling the edges. The AI-product hero background, on a lightweight Canvas.",
-      "category": "Backgrounds",
-      "dependencies": [],
-      "registryDependencies": ["@godui/godui-theme"],
-      "install": "npx shadcn@latest add @godui/neural-grid"
-    },
-    {
       "name": "notification-inbox",
       "title": "Notification Inbox",
       "description": "A Linear-style notification center with time-bucketed groups, unread accent rails, swipe-to-archive, mark-all-read, and a polished empty state.",
@@ -452,15 +461,6 @@
       "dependencies": ["framer-motion"],
       "registryDependencies": ["@godui/godui-theme"],
       "install": "npx shadcn@latest add @godui/otp-input"
-    },
-    {
-      "name": "pagination",
-      "title": "Pagination",
-      "description": "A page navigator with a shared-element indicator that slides to the active page, nudging arrows, and ellipsis truncation.",
-      "category": "Navigation",
-      "dependencies": ["framer-motion"],
-      "registryDependencies": ["@godui/godui-theme"],
-      "install": "npx shadcn@latest add @godui/pagination"
     },
     {
       "name": "particle-dissolve",
@@ -580,6 +580,15 @@
       "install": "npx shadcn@latest add @godui/shimmer-button"
     },
     {
+      "name": "slide-confirm-button",
+      "title": "Slide Confirm Button",
+      "description": "A drag-to-confirm thumb for high-stakes actions that snaps past a threshold and springs back otherwise.",
+      "category": "Buttons",
+      "dependencies": ["framer-motion"],
+      "registryDependencies": ["@godui/godui-theme"],
+      "install": "npx shadcn@latest add @godui/slide-confirm-button"
+    },
+    {
       "name": "source-citations",
       "title": "Source Citations",
       "description": "Inline numbered citation pills that spring out a rich preview card on hover, plus a collapsible source list for AI answers.",
@@ -659,15 +668,6 @@
       "dependencies": ["framer-motion"],
       "registryDependencies": ["@godui/godui-theme"],
       "install": "npx shadcn@latest add @godui/text-scramble"
-    },
-    {
-      "name": "theme-toggle",
-      "title": "Theme Toggle",
-      "description": "A dark/light switch that reveals the new theme with a circular wipe from the click origin.",
-      "category": "Buttons",
-      "dependencies": ["framer-motion"],
-      "registryDependencies": ["@godui/godui-theme"],
-      "install": "npx shadcn@latest add @godui/theme-toggle"
     },
     {
       "name": "tilt-card",
