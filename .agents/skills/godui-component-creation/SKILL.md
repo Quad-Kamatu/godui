@@ -212,6 +212,13 @@ import { MyComponent } from "@godui/components";
 
 `ComponentPreview` and `ComponentInstall` are registered globally in `apps/docs/src/components/mdx.tsx`.
 
+**Mobile preview (required check).** `ComponentPreview` has a desktop/mobile toggle; mobile renders the demo inside a **360px** `<iframe>` so real `@media` queries fire. Demos must be fluid so they don't overflow it, **without changing the desktop rendering**:
+
+- Swap a fixed `w-[26rem]` for `w-full max-w-[26rem]` — on the wide desktop container this still resolves to 26rem (identical), but shrinks below 360px on mobile.
+- Any padding/margin you add purely to keep the card off the mobile edges must be **mobile-only** — gate it with `max-sm:` (e.g. `max-sm:px-4`, `max-sm:mx-4`) so desktop stays byte-for-byte the same. Never add flat `px-4`/`mx-4` that also hits desktop.
+
+Always flip the toggle to mobile AND back to desktop: mobile must not clip or h-scroll, desktop must look exactly as before (see §8).
+
 **MDX `<p>`-in-`<p>` hydration trap (happens frequently).** Inside `ComponentPreview`
 children, any text sitting on **its own line** inside a block element gets wrapped by MDX
 in an extra `<p>`. If that element is itself a `<p>` (or the preview already lives inside
@@ -328,6 +335,7 @@ slug.
 - **NEVER** put bare text on its own line inside a block tag in `ComponentPreview` children — MDX wraps it in a `<p>`, causing `<p>`-in-`<p>` hydration errors. Keep text inline (see §5).
 - **NEVER** rely on folder auto-nav for docs — register the page in the root `apps/docs/content/docs/meta.json` (slug `components/{category}/{name}`) and add a `<PreviewCard>` in `components/index.mdx`, or it won't appear (see §5).
 - **NEVER** ship a `<PreviewCard>` without its placeholder preview — create `card-previews/previews/{name}.tsx` (filename = href slug) and add the slug to `CURATED_SLUGS`, or the card renders text-only and breaks the uniform grid (see §6).
+- **NEVER** give a demo (or the component itself) a fixed width wider than the mobile preview — `ComponentPreview` has a mobile toggle that renders the demo in a **360px** iframe, so a hard `w-[26rem]`/`w-96`/`min-w-[...]` overflows and clips. Use fluid widths: `w-full max-w-[26rem]` (shrinks on mobile, still 26rem on desktop). Gate any extra edge padding/margin to mobile with `max-sm:` so **desktop stays unchanged** — never add flat `px-4`/`mx-4` that also alters desktop (see §5).
 
 ## 9. Theme tokens
 
@@ -354,4 +362,5 @@ slug.
 - [ ] `<PreviewCard>` added to its section in `components/index.mdx`
 - [ ] Placeholder preview `card-previews/previews/{name}.tsx` (kit skeleton, `group-hover` motion) + slug in `CURATED_SLUGS` (see §6)
 - [ ] Static Tailwind classes only (no dynamic class construction)
+- [ ] Demo is fluid — `w-full max-w-[...]`, no fixed width wider than 360px; verified via the ComponentPreview mobile toggle (see §8)
 - [ ] Verified styles in Storybook and docs after dev server restart

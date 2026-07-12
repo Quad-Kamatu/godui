@@ -13,8 +13,16 @@ const LINES: TerminalLine[] = [
 
 export function TerminalDemo() {
   return (
-    <div className="flex items-center justify-center px-6 py-12">
-      <Terminal lines={LINES} title="zsh — godui" loop className="w-[26rem]" />
+    <div className="flex items-center justify-center px-4 py-12 sm:px-6">
+      <Terminal
+        lines={LINES}
+        title="zsh — godui"
+        loop
+        // Desktop: fixed width so it never reflows as lines type in (the preview
+        // container would otherwise let the width track content). Mobile: stay
+        // fluid so it fits the 360px preview iframe.
+        className="w-full max-w-[26rem] sm:w-[28rem] sm:max-w-none"
+      />
     </div>
   );
 }
