@@ -41,4 +41,31 @@ describe("SlideConfirmButton", () => {
     const { container } = render(<SlideConfirmButton className="custom" />);
     expect(container.firstChild).toHaveClass("custom");
   });
+
+  it("shows the loading status while an async onConfirm is pending", async () => {
+    let resolve!: () => void;
+    const pending = new Promise<void>((r) => {
+      resolve = r;
+    });
+    const onConfirm = vi.fn(() => pending);
+    const { container } = render(
+      <SlideConfirmButton onConfirm={onConfirm} loadingLabel="Saving" />,
+    );
+    const thumb = screen.getByRole("button");
+    act(() => {
+      thumb.dispatchEvent(
+        new KeyboardEvent("keydown", { key: "ArrowRight", bubbles: true }),
+      );
+    });
+
+    expect(container.firstChild).toHaveAttribute("data-status", "loading");
+    expect(screen.getByText("Saving")).toBeInTheDocument();
+
+    await act(async () => {
+      resolve();
+      await pending;
+    });
+
+    expect(container.firstChild).toHaveAttribute("data-status", "confirmed");
+  });
 });
