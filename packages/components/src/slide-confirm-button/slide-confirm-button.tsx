@@ -175,15 +175,28 @@ const SlideConfirmButton = React.forwardRef<
           }}
         />
 
-        {/* Centered label. */}
+        {/* Centered label. Reserve the thumb's resting footprint on the left
+            (thumb width + both pads) so the text never sits under the resting
+            thumb. Programmatic, so it scales with size. */}
         <motion.span
-          style={{ opacity: confirmed ? 0 : labelOpacity }}
-          className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center font-medium text-muted-foreground"
+          style={{
+            opacity: confirmed ? 0 : labelOpacity,
+            paddingLeft: dims.thumb + dims.pad * 2,
+            paddingRight: dims.pad,
+          }}
+          className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center whitespace-nowrap font-medium text-muted-foreground"
         >
           {label}
         </motion.span>
         {confirmed && (
-          <span className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center font-medium text-foreground">
+          // When confirmed the thumb rests on the RIGHT, so mirror the offset.
+          <span
+            style={{
+              paddingLeft: dims.pad,
+              paddingRight: dims.thumb + dims.pad * 2,
+            }}
+            className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center whitespace-nowrap font-medium text-foreground"
+          >
             {confirmedLabel}
           </span>
         )}
