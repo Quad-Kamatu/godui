@@ -58,6 +58,22 @@ export function AccordionMultiple() {
   </div>
 </ComponentPreview>
 
+## Animation
+
+`animation` sets the motion feel of the height transition — `smooth` (default, no overshoot), `spring` (soft overshoot), or `bounce` (playful).
+
+<ComponentPreview
+  code={`import { Accordion } from "@/components/godui/accordion";
+
+export function AccordionBounce() {
+  return <Accordion items={items} defaultValue="what" animation="bounce" />;
+}`}
+>
+  <div className="w-full max-w-lg">
+    <Accordion items={faqItems} defaultValue="what" animation="bounce" />
+  </div>
+</ComponentPreview>
+
 ## Installation
 
 <ComponentInstall name="accordion" />
@@ -82,3 +98,4 @@ import { Accordion } from "@godui/components";
 | `type` | `"single" \| "multiple"` | `"single"` | Open behavior. |
 | `defaultValue` | `string \| string[]` | — | Initially open value(s). |
 | `collapsible` | `boolean` | `true` | Allow closing the open panel in single mode. |
+| `animation` | `"smooth" \| "spring" \| "bounce"` | `"smooth"` | Motion feel of the height animation. |
