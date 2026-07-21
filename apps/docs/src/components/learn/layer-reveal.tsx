@@ -21,21 +21,26 @@ type Plate = { key: string; tz: number; delay: number; cls: string };
 
 const PLATES: Plate[] = [
   { key: "shadow", tz: -30, delay: 0, cls: "bg-black/50 blur-[5px]" },
-  { key: "edge", tz: 24, delay: 120, cls: "bg-[var(--muted)]" },
+  {
+    key: "edge",
+    tz: 24,
+    delay: 120,
+    cls: "bg-zinc-500 dark:bg-zinc-600",
+  },
   {
     key: "face",
     tz: 78,
     delay: 240,
-    cls: "border border-white/10 bg-[var(--card)]",
+    cls: "bg-primary",
   },
 ];
 
 const LEGEND: { name: string; desc: string; swatch: string }[] = [
-  { name: "Front face", desc: "what you press", swatch: "bg-[var(--card)]" },
+  { name: "Front face", desc: "what you press", swatch: "bg-primary" },
   {
     name: "Edge",
     desc: "fakes the thickness",
-    swatch: "bg-[var(--muted)]",
+    swatch: "bg-zinc-500 dark:bg-zinc-600",
   },
   { name: "Shadow", desc: "grounds it", swatch: "bg-black/60" },
 ];
