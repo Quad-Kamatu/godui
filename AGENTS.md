@@ -47,3 +47,7 @@ Use **pnpm** — never npm or yarn.
 
 - Run `pnpm check` and `pnpm test` — both must pass.
 - If `registry.json` or any component changed, run `pnpm build:registry`.
+
+## Shared UI standards
+
+For new or materially changed UI, read the [UNNDEV UI adoption entry](standards/UNNDEV-UI-STANDARDS.md), its shared core and local profile. Preserve existing repository instructions and product-specific authority; this link does not authorize redesign or release actions.
